@@ -46,6 +46,7 @@ puts "\nfirst 3 questions:"
 puts table
 p answers.length
 
+#
 # type 3 - ask q4
 
 t3hs = %w[ q1 q2 q3 mean amean var am*v q4 mean amean var res ]
@@ -77,4 +78,35 @@ table.style = { alignment: :right }
 puts "\ntype 3, ask question 4:"
 puts table
 p t3s.length
+
+
+#
+# ask 2 questions
+
+hs = %w[ qcat1 qcat2 mean amean var res ]
+answers = [ -1, 0, 1 ].product([ -1, 0, 1 ])
+
+answers.each do |a|
+
+  as = a[0, 2].collect(&:to_f)
+  mean = as.reduce(&:+) / as.size
+  a << mean.round(3)
+  a << mean.abs.round(3)
+  var = as.collect { |a| (a - mean) ** 2 }.reduce(&:+) / as.size
+  a << var.round(3)
+  #a << (mean.abs * var).round(3)
+
+  a <<
+    case mean.round(2)
+      when -1.00..-0.50 then 'mp'
+      when 0.0 then var == 0.0 ? 'm' : 'no'
+      else 'mb'
+    end
+end
+
+table = Terminal::Table.new(:headings => hs, :rows => answers)
+table.style = { alignment: :right }
+puts "\nask 2 questions:"
+puts table
+p answers.length
 
