@@ -36,7 +36,7 @@ answers.each do |a|
     end
 end
 
-mi = hs.index('amean')
+mi = hs.index('mean')
 vi = hs.index('var')
 answers = answers.sort_by { |a| "#{a[vi]}:#{a[mi]}" }
 
