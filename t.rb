@@ -1,7 +1,7 @@
 
 require 'terminal-table'
 
-hs = %w[ type q1 q2 q3 mean amean var am*v ]
+hs = %w[ type q1 q2 q3 mean amean var am*v res ]
 
 answers = [ -1, 0, 1 ].product([ -1, 0, 1 ], [ -1, 0, 1 ])
 
@@ -24,6 +24,15 @@ answers.each do |a|
       when 0.07..0.08 then 3
       when 0.29..0.30 then 4
       else nil
+    end
+  a <<
+    case mean.round(2)
+      when -1.00 then 'p'
+      when  1.00 then 'b'
+      when  0.00 then a[0] == 1 ? 'm' : 'ask 2qs'
+      when -0.67 then 'mp'
+      when  0.67 then 'mb'
+      else a[0] == 3 ? 'ask q4' : 'ask 2qs'
     end
 end
 
