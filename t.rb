@@ -42,6 +42,39 @@ answers = answers.sort_by { |a| "#{a[vi]}:#{a[mi]}" }
 
 table = Terminal::Table.new(:headings => hs, :rows => answers)
 table.style = { alignment: :right }
+puts "\nfirst 3 questions:"
 puts table
 p answers.length
+
+# type 3 - ask q4
+
+t3hs = %w[ q1 q2 q3 mean amean var am*v q4 mean amean var res ]
+t3s =
+  answers.select { |a| a[0] == 3 }.collect { |a| a[1..-2] }
+t3s =
+  t3s.inject([]) { |rs, row| [ -1, 0, 1 ].each { |a| rs << [ *row, a ] }; rs }
+
+t3s.each do |a|
+
+  as = [ *a[0, 3], a[7] ].collect(&:to_f)
+  mean = as.reduce(&:+) / as.size
+  a << mean.round(3)
+  a << mean.abs.round(3)
+  var = as.collect { |a| (a - mean) ** 2 }.reduce(&:+) / as.size
+  a << var.round(3)
+  #a << (mean.abs * var).round(3)
+
+  a <<
+    case mean
+      when -0.5 then 'mp'
+      when  0.5 then 'mb'
+      else 'm'
+    end
+end
+
+table = Terminal::Table.new(:headings => t3hs, :rows => t3s)
+table.style = { alignment: :right }
+puts "\ntype 3, ask question 4:"
+puts table
+p t3s.length
 
