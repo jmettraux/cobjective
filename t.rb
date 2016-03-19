@@ -25,7 +25,7 @@ answers.each do |a|
       when 0.29..0.30 then 4
       else nil
     end
-  a <<
+  a << # determine outcome
     case mean.round(2)
       when -1.00 then 'p'
       when  1.00 then 'b'
@@ -65,7 +65,7 @@ t3s.each do |a|
   a << var.round(3)
   #a << (mean.abs * var).round(3)
 
-  a <<
+  a << # determine outcome
     case mean
       when -0.5 then 'mp'
       when  0.5 then 'mb'
@@ -96,7 +96,7 @@ answers.each do |a|
   a << var.round(3)
   #a << (mean.abs * var).round(3)
 
-  a <<
+  a << # determine outcome
     case mean.round(2)
       when -1.00..-0.50 then 'mp'
       when 0.0 then var == 0.0 ? 'm' : 'no'
